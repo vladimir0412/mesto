@@ -19,4 +19,4 @@
 
 * создание дополнительных веток и коммитов, для удобства работы в git;
 
-**ссылка на проект: https://vladimir0412.github.io/russian-travel/index.html**
+**ссылка на проект: https://vladimir0412.github.io/mesto/index.html**
