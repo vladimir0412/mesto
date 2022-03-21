@@ -3,6 +3,7 @@
 const popupElement = document.querySelector('.popup');
 const navButton = document.querySelector('.profile__name-button');
 const closeButton = popupElement.querySelector('.popup__close-button');
+const ESC_KEY = "Escape";
 
 function openPopup() {
   popupElement.classList.add('popup_opened');
@@ -26,8 +27,6 @@ function onDocumentKeyUp(event) {
 navButton.addEventListener('click', openPopup);
 
 closeButton.addEventListener('click', closePopup);
-
-const ESC_KEY = "Escape";
 
 // Редактирование Popup
 

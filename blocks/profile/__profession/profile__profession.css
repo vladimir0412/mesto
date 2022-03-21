@@ -3,18 +3,29 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 430px;
+}
+
+@media screen and (max-width: 940px) {
+  .profile__profession {
+    max-width: 330px;
+  }
 }
 
 @media screen and (max-width: 620px) {
   .profile__profession {
     font-size: 14px;
     line-height: 1.2;
+    max-width: 240px;
   }
 }
 
 @media screen and (max-width: 425px) {
   .profile__profession {
     text-align: center;
-    margin: 8px 0 0;
+    margin: 8px auto 0;
   }
 }
