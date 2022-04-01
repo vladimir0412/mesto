@@ -11,10 +11,3 @@
 .elements__like:hover {
   opacity: .6;
 }
-
-.elements__like:active {
-  background-image: url(../../../images/like-active.png);
-  width: 22px;
-  height: 19px;
-  cursor: pointer;
-}

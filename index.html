@@ -41,48 +41,18 @@
         <!-- Elements -->
 
         <section class="elements">
-          <div class="elements__card">
-            <img class="elements__image" src="images/berlin.jpg" alt="Берлин">
-            <div class="elements__items">
-              <h2 class="elements__name">Берлин</h2>
-              <button class="elements__like" type="button"></button>
+          <template id="elements">
+            <div class="elements__card">
+              <a class="elements__image-link">
+                <img class="elements__image" src="#" alt="Изображение">
+              </a>
+             <button class="elements__trash"></button>
+              <div class="elements__items">
+                <h2 class="elements__name"></h2>
+                <button class="elements__like" type="button"></button>
+              </div>
             </div>
-          </div>
-          <div class="elements__card">
-            <img class="elements__image" src="images/helsinki.jpg" alt="Хельсинки">
-            <div class="elements__items">
-              <h2 class="elements__name">Хельсинки</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img class="elements__image" src="images/moscow.jpg" alt="Москва">
-            <div class="elements__items">
-              <h2 class="elements__name">Москва</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img class="elements__image" src="images/paris.jpg" alt="Париж">
-            <div class="elements__items">
-              <h2 class="elements__name">Париж</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img class="elements__image" src="images/prague.jpg" alt="Прага">
-            <div class="elements__items">
-              <h2 class="elements__name">Прага</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img class="elements__image" src="images/stockholm.jpg" alt="Стокгольм">
-            <div class="elements__items">
-              <h2 class="elements__name">Стокгольм</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </div>
+          </template>
         </section>
 
       </main>
@@ -94,7 +64,10 @@
       </footer>
 
     </div>
-    <div class="popup">
+
+    <!-- Popups -->
+
+    <div class="popup popup_profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
         <p class="popup__title">Редактировать профиль</p>
@@ -105,7 +78,26 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_card">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <p class="popup__title">Новое место</p>
+        <form class="popup__form" name="form">
+          <input class="popup__name" type="text" placeholder="Название" name="name">
+          <input class="popup__profession" type="text" placeholder="Ссылка на картинку" name="link">
+          <button class="popup__button" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_image">
+      <div class="popup__third-container">
+        <button class="popup__close-button" type="button"></button>
+        <img class="popup__image" src="#" alt="Изображение">
+        <p class="popup__title-third"></p>
+      </div>
+    </div>
   </div>
+
   <script src="scripts/index.js"></script>
 </body>
 </html>

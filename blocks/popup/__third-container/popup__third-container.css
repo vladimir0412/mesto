@@ -1,0 +1,5 @@
+.popup__third-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
