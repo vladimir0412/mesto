@@ -1,4 +1,4 @@
-.elements__trash {
+.card__trash {
   background: url(../../../images/Trash.svg);
   width: 18px;
   height: 19px;
@@ -10,6 +10,6 @@
   transition-duration: .4s;
 }
 
-.elements__trash:hover {
+.card__trash:hover {
   opacity: .6;
 }
