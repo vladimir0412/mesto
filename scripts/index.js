@@ -80,23 +80,23 @@ const createCard = (card) => {
     openPopup(popupTypeImage);
   });
 
-  // Функция добавления like на Card + обработчик события и колбэк
-  function likeCard () {
+  // Функция добавления like на Card + обработчик события и колбэк (к сожалению, не смог реализовать как нужно)
+  function pushLikeButtonCard () {
     elementsCard.querySelector('.card__like').addEventListener('click', (evt) => {
       evt.target.classList.toggle('card__like_active');
     });
   }
 
-  likeCard ();
+  pushLikeButtonCard();
 
-  // Обработчик собития и стрелочная функция удаления cards
-  function RemoveCard() {
+  // Обработчик собития и стрелочная функция удаления cards (к сожалению, не смог реализовать как нужно)
+  function pushRemoveButtonCard() {
     elementsCard.querySelector('.card__trash').addEventListener('click', () => {
       elementsCard.remove();
     });
   }
 
-  RemoveCard();
+  pushRemoveButtonCard();
 
   return elementsCard;
 }
