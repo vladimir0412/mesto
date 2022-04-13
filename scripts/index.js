@@ -80,23 +80,27 @@ const createCard = (card) => {
     openPopup(popupTypeImage);
   });
 
-  // Функция добавления like на Card + обработчик события и колбэк (к сожалению, не смог реализовать как нужно)
-  function pushLikeButtonCard () {
-    elementsCard.querySelector('.card__like').addEventListener('click', (evt) => {
-      evt.target.classList.toggle('card__like_active');
-    });
+  // Переменная кнопки Like
+  const cardLikeButton = elementsCard.querySelector('.card__like');
+
+  // Переменная кнопки удаления Card
+  const cardRemoveButton = elementsCard.querySelector('.card__trash');
+
+  // Функция добавления Like
+  function toggleLike(evt) {
+    evt.target.classList.toggle('card__like_active');
   }
 
-  pushLikeButtonCard();
-
-  // Обработчик собития и стрелочная функция удаления cards (к сожалению, не смог реализовать как нужно)
-  function pushRemoveButtonCard() {
-    elementsCard.querySelector('.card__trash').addEventListener('click', () => {
-      elementsCard.remove();
-    });
+  // Функция удаления Card
+  function removeCard() {
+    elementsCard.remove();
   }
 
-  pushRemoveButtonCard();
+  // Обработчик события Like
+  cardLikeButton.addEventListener('click', toggleLike);
+
+  // Обработчик собития удаления Card
+  cardRemoveButton.addEventListener('click', removeCard);
 
   return elementsCard;
 }
