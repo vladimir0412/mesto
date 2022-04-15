@@ -17,19 +17,29 @@ const popupImageTitle = popupTypeImage.querySelector('.popup__image-title');
 
 // Переменные PopupProfile
 const popupProfileForm = document.querySelector('.popup__form');
-const popupName = popupProfileForm.querySelector('.popup__name');
-const popupProfession = popupProfileForm.querySelector('.popup__profession');
+const popupName = popupProfileForm.querySelector('.popup__input_type_name');
+const popupProfession = popupProfileForm.querySelector('.popup__input_type_other');
 const profileName = document.querySelector('.profile__name-text');
 const profileProfession = document.querySelector('.profile__profession');
 
 // Переменные добавления Cards через форму
 const popupCardForm = popupTypeCard.querySelector('.popup__form');
-const cardName = popupTypeCard.querySelector('.popup__name');
-const cardLink = popupTypeCard.querySelector('.popup__profession');
+const cardName = popupTypeCard.querySelector('.popup__input_type_name');
+const cardLink = popupTypeCard.querySelector('.popup__input_type_other');
 const elements = document.querySelector('.elements');
 
 // Переменная создания Cards из массива
 const template = document.querySelector('#template');
+
+// Переменные invidual Submit for Buttons
+const popupSubmitCard = document.querySelector('.popup__button_type_card');
+const popupSubmitProfile = document.querySelector('.popup__button_type_profile');
+const popupButtonInactive = {
+  inactiveButtonClass: 'popup__button_inactive',
+};
+
+// Переменная для закрытия Popup через Overlay
+const popupWindow = document.querySelectorAll('.popup');
 
 // Открытие Popup
 function openPopup(popup) {
@@ -50,6 +60,15 @@ function onDocumentKeyUp(event) {
     closePopup(document.querySelector('.popup_opened'));
   }
 }
+
+// Функция закрытия Popup через Overlay
+popupWindow.forEach((popup) => {
+  popup.addEventListener('mousedown', function(evt) {
+    if(evt.target === evt.currentTarget) {
+      closePopup(document.querySelector('.popup_opened'));
+    }
+  })
+})
 
 // Редактирование Popup
 // Функция редактирования PopupProfile
@@ -130,13 +149,23 @@ elements.append(...newElements);
 
 popupTypeCard.addEventListener('submit', addCard);
 
+
+
 // Обработчики событий открытия/закрытия popups
+// Для popupProfile
 buttonPopupProfile.addEventListener('click', () => {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
   openPopup(popupTypeProfile);
+  getEnabledButton(popupSubmitProfile, popupButtonInactive);
 });
-buttonPopupCard.addEventListener('click', () => openPopup(popupTypeCard));
+
+// Для popupCard
+buttonPopupCard.addEventListener('click', () => {
+  openPopup(popupTypeCard);
+  getDisabledButton(popupSubmitCard, popupButtonInactive);
+});
+
 buttonClosePopupProfile.addEventListener('click', () => closePopup(popupTypeProfile));
 buttonClosePopupCard.addEventListener('click', () => closePopup(popupTypeCard));
 buttonClosePopupImage.addEventListener('click', () => closePopup(popupTypeImage));
