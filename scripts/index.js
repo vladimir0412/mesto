@@ -1,17 +1,14 @@
 // Переменные PopupTypeProfile
 const popupTypeProfile = document.querySelector('.popup_type_profile');
 const buttonPopupProfile = document.querySelector('.profile__name-button');
-const buttonClosePopupProfile = popupTypeProfile.querySelector('.popup__close-button');
 const ESC_KEY = "Escape";
 
 // Переменные PopupTypeCard
 const popupTypeCard = document.querySelector('.popup_type_card');
 const buttonPopupCard = document.querySelector('.profile__button');
-const buttonClosePopupCard = popupTypeCard.querySelector('.popup__close-button');
 
 // Переменные PopupTypeCard
 const popupTypeImage = document.querySelector('.popup_type_image');
-const buttonClosePopupImage = popupTypeImage.querySelector('.popup__close-button');
 const popupOpenedImage = popupTypeImage.querySelector('.popup__image');
 const popupImageTitle = popupTypeImage.querySelector('.popup__image-title');
 
@@ -44,18 +41,18 @@ const popupWindow = document.querySelectorAll('.popup');
 // Открытие Popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keyup', onDocumentKeyUp);
+  document.addEventListener('keyup', handleEscapeKey);
 }
 
 // Закрытие Popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   // Удаляем собития, которые мы передавали в addEventListener (с обработчика событий)
-  document.removeEventListener('keyup', onDocumentKeyUp);
+  document.removeEventListener('keyup', handleEscapeKey);
 }
 
 // Функция закрытия Popup через Esc
-function onDocumentKeyUp(event) {
+function handleEscapeKey(event) {
   if (event.key === ESC_KEY) {
     closePopup(document.querySelector('.popup_opened'));
   }
@@ -65,7 +62,10 @@ function onDocumentKeyUp(event) {
 popupWindow.forEach((popup) => {
   popup.addEventListener('mousedown', function(evt) {
     if(evt.target === evt.currentTarget) {
-      closePopup(document.querySelector('.popup_opened'));
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains('popup__close-button')) {
+      closePopup(popup)
     }
   })
 })
@@ -157,15 +157,11 @@ buttonPopupProfile.addEventListener('click', () => {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
   openPopup(popupTypeProfile);
-  getEnabledButton(popupSubmitProfile, popupButtonInactive);
+  setEnabledButton(popupSubmitProfile, popupButtonInactive);
 });
 
 // Для popupCard
 buttonPopupCard.addEventListener('click', () => {
   openPopup(popupTypeCard);
-  getDisabledButton(popupSubmitCard, popupButtonInactive);
+  setDisabledButton(popupSubmitCard, popupButtonInactive);
 });
-
-buttonClosePopupProfile.addEventListener('click', () => closePopup(popupTypeProfile));
-buttonClosePopupCard.addEventListener('click', () => closePopup(popupTypeCard));
-buttonClosePopupImage.addEventListener('click', () => closePopup(popupTypeImage));

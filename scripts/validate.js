@@ -1,7 +1,3 @@
-// Переменные форм
-const formElement = document.querySelector('.popup__form');
-const inputElement = formElement.querySelector('.popup__input');
-
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage, obj) => {
   // Находим элемент ошибки внутри самой функции
@@ -37,19 +33,14 @@ const isValid = (formElement, inputElement, obj) => {
   }
 };
 
-formElement.addEventListener('submit', function (evt) {
-  // Отменим стандартное поведение по сабмиту
-  evt.preventDefault();
-});
-
 // Функция добавления неактивной кнопки Popup
-function getDisabledButton(buttonElement, obj) {
+function setDisabledButton(buttonElement, obj) {
   buttonElement.classList.add(`${obj.inactiveButtonClass}`);
   buttonElement.disabled = true;
 }
 
-// Функция добавления неактивной кнопки Popup
-function getEnabledButton(buttonElement, obj) {
+// Функция добавления активной кнопки Popup
+function setEnabledButton(buttonElement, obj) {
   buttonElement.classList.remove(obj.inactiveButtonClass);
   buttonElement.disabled = false;
 }
@@ -60,10 +51,10 @@ const toggleButtonState = (inputList, buttonElement, obj) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    getDisabledButton(buttonElement, obj);
+    setDisabledButton(buttonElement, obj);
   } else {
     // иначе сделай кнопку активной
-    getEnabledButton(buttonElement, obj);
+    setEnabledButton(buttonElement, obj);
   }
 };
 
