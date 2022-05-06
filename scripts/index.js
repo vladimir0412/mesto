@@ -1,16 +1,42 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+
+// Объект с ссылками на изображения
+const initialCards = [
+  {
+    name: 'Берлин',
+    link: 'https://unsplash.com/photos/rCOpnW9mxvc/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mjd8fGJlcmxpbnxlbnwwfHx8fDE2NDg1NTQ4OTI&force=true&w=640'
+  },
+  {
+    name: 'Хельсинки',
+    link: 'https://unsplash.com/photos/NIjvMFfWE1A/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MTV8fGhlbHNpbmtpfGVufDB8fHx8MTY0ODU2MTE5NQ&force=true&w=640'
+  },
+  {
+    name: 'Москва',
+    link: 'https://unsplash.com/photos/qltdT9VN3AU/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mzd8fG1vc2Nvd3xlbnwwfHx8fDE2NDg1NjM1NTA&force=true&w=640'
+  },
+  {
+    name: 'Париж',
+    link: 'https://unsplash.com/photos/UO02gAW3c0c/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MTV8fHBhcmlzfGVufDB8fHx8MTY0ODU2MDYwNQ&force=true&w=640'
+  },
+  {
+    name: 'Прага',
+    link: 'https://unsplash.com/photos/S7PKp7eAEdE/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MTZ8fHByYWd1ZXxlbnwwfHx8fDE2NDg1NjEzMjY&force=true&w=640'
+  },
+  {
+    name: 'Стокгольм',
+    link: 'https://unsplash.com/photos/inbePXjTh-A/download?force=true&w=640'
+  }
+];
+
 // Переменные PopupTypeProfile
 const popupTypeProfile = document.querySelector('.popup_type_profile');
 const buttonPopupProfile = document.querySelector('.profile__name-button');
 const ESC_KEY = "Escape";
 
-// Переменные PopupTypeCard
+// // Переменные PopupTypeCard
 const popupTypeCard = document.querySelector('.popup_type_card');
 const buttonPopupCard = document.querySelector('.profile__button');
-
-// Переменные PopupTypeCard
-const popupTypeImage = document.querySelector('.popup_type_image');
-const popupOpenedImage = popupTypeImage.querySelector('.popup__image');
-const popupImageTitle = popupTypeImage.querySelector('.popup__image-title');
 
 // Переменные PopupProfile
 const popupProfileForm = document.querySelector('.popup__form');
@@ -24,16 +50,6 @@ const popupCardForm = popupTypeCard.querySelector('.popup__form');
 const cardName = popupTypeCard.querySelector('.popup__input_type_name');
 const cardLink = popupTypeCard.querySelector('.popup__input_type_other');
 const elements = document.querySelector('.elements');
-
-// Переменная создания Cards из массива
-const template = document.querySelector('#template');
-
-// Переменные invidual Submit for Buttons
-const popupSubmitCard = document.querySelector('.popup__button_type_card');
-const popupSubmitProfile = document.querySelector('.popup__button_type_profile');
-const popupButtonInactive = {
-  inactiveButtonClass: 'popup__button_inactive',
-};
 
 // Переменная для закрытия Popup через Overlay
 const popupWindow = document.querySelectorAll('.popup');
@@ -82,52 +98,24 @@ function editFormProfile (evt) {
 // Обработчик события редактирования PopupProfile
 popupProfileForm.addEventListener('submit', editFormProfile);
 
-// Добавление и удаление Cards
-// Стрелочная функция создания cards из массива
-const createCard = (card) => {
-  const elementsCard = template.content.querySelector('.card').cloneNode(true);
-  const imageCard = elementsCard.querySelector('.card__image');
-  imageCard.src = card.link;
-  imageCard.alt = card.name;
-  elementsCard.querySelector('.card__name').textContent = card.name;
-
-  // Обработчик собития и стрелочная функция открытия PopupImage
-  imageCard.addEventListener('click', () => {
-    popupOpenedImage.src = card.link;
-    popupOpenedImage.alt = card.name;
-    popupImageTitle.textContent = card.name;
-    openPopup(popupTypeImage);
-  });
-
-  // Переменная кнопки Like
-  const cardLikeButton = elementsCard.querySelector('.card__like');
-
-  // Переменная кнопки удаления Card
-  const cardRemoveButton = elementsCard.querySelector('.card__trash');
-
-  // Функция добавления Like
-  function toggleLike(evt) {
-    evt.target.classList.toggle('card__like_active');
-  }
-
-  // Функция удаления Card
-  function removeCard() {
-    elementsCard.remove();
-  }
-
-  // Обработчик события Like
-  cardLikeButton.addEventListener('click', toggleLike);
-
-  // Обработчик собития удаления Card
-  cardRemoveButton.addEventListener('click', removeCard);
-
+// Функция создания разметки карточки
+const newCard = function createNewCard(data) {
+  const card = new Card(data.link, data.name, '#template');
+  const elementsCard = card.generateCard();
   return elementsCard;
 }
 
-// Стрелочная функция рендера Cards
+// Функция добавления карточек из объекта initialCards
+initialCards.forEach((card) => {
+  const cardFromObject = newCard(card);
+  elements.append(cardFromObject);
+});
+
+// Функция добавления карточки из формы .popup_type_card
 const renderCard = (card) => {
-  elements.prepend(createCard(card));
-}
+  const cardFromPopup = newCard(card);
+  elements.prepend(cardFromPopup);
+};
 
 // Стрелочная функция создания новых Cards
 const addCard = (event) => {
@@ -137,19 +125,10 @@ const addCard = (event) => {
   card.link = cardLink.value;
 
   renderCard(card);
-  popupCardForm.reset();
   closePopup(popupTypeCard);
 }
 
-const newElements = initialCards.map(function(card) {
-  return createCard(card);
-})
-
-elements.append(...newElements);
-
 popupTypeCard.addEventListener('submit', addCard);
-
-
 
 // Обработчики событий открытия/закрытия popups
 // Для popupProfile
@@ -157,11 +136,32 @@ buttonPopupProfile.addEventListener('click', () => {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
   openPopup(popupTypeProfile);
-  setEnabledButton(popupSubmitProfile, popupButtonInactive);
+  validationPopupProfileForm.toggleButtonState();
 });
 
 // Для popupCard
 buttonPopupCard.addEventListener('click', () => {
+  popupCardForm.reset();
   openPopup(popupTypeCard);
-  setDisabledButton(popupSubmitCard, popupButtonInactive);
+  validationPopupCardForm.toggleButtonState();
 });
+
+const enableValidationObject = {
+  formElement: '.popup__form',
+  inputElement: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__error'
+};
+
+const formTypeProfile = document.querySelector('.popup__form_type_profile');
+const formTypeCard = document.querySelector('.popup__form_type_card');
+
+const validationPopupProfileForm = new FormValidator(enableValidationObject, formTypeProfile);
+validationPopupProfileForm.enableValidation();
+
+const validationPopupCardForm = new FormValidator(enableValidationObject, formTypeCard);
+validationPopupCardForm.enableValidation();
+
+export { openPopup };
