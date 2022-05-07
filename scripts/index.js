@@ -32,7 +32,7 @@ const initialCards = [
 // Переменные PopupTypeProfile
 const popupTypeProfile = document.querySelector('.popup_type_profile');
 const buttonPopupProfile = document.querySelector('.profile__name-button');
-const ESC_KEY = "Escape";
+let ESC_KEY = "Escape";
 
 // // Переменные PopupTypeCard
 const popupTypeCard = document.querySelector('.popup_type_card');
@@ -77,11 +77,8 @@ function handleEscapeKey(event) {
 // Функция закрытия Popup через Overlay
 popupWindow.forEach((popup) => {
   popup.addEventListener('mousedown', function(evt) {
-    if(evt.target === evt.currentTarget) {
+    if(evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
       closePopup(popup);
-    }
-    if (evt.target.classList.contains('popup__close-button')) {
-      closePopup(popup)
     }
   })
 })
@@ -99,7 +96,7 @@ function editFormProfile (evt) {
 popupProfileForm.addEventListener('submit', editFormProfile);
 
 // Функция создания разметки карточки
-const newCard = function createNewCard(data) {
+const createNewCard = (data) => {
   const card = new Card(data.link, data.name, '#template');
   const elementsCard = card.generateCard();
   return elementsCard;
@@ -107,13 +104,13 @@ const newCard = function createNewCard(data) {
 
 // Функция добавления карточек из объекта initialCards
 initialCards.forEach((card) => {
-  const cardFromObject = newCard(card);
+  const cardFromObject = createNewCard(card);
   elements.append(cardFromObject);
 });
 
 // Функция добавления карточки из формы .popup_type_card
 const renderCard = (card) => {
-  const cardFromPopup = newCard(card);
+  const cardFromPopup = createNewCard(card);
   elements.prepend(cardFromPopup);
 };
 
@@ -135,15 +132,15 @@ popupTypeCard.addEventListener('submit', addCard);
 buttonPopupProfile.addEventListener('click', () => {
   popupName.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  openPopup(popupTypeProfile);
   validationPopupProfileForm.toggleButtonState();
+  openPopup(popupTypeProfile);
 });
 
 // Для popupCard
 buttonPopupCard.addEventListener('click', () => {
   popupCardForm.reset();
-  openPopup(popupTypeCard);
   validationPopupCardForm.toggleButtonState();
+  openPopup(popupTypeCard);
 });
 
 const enableValidationObject = {

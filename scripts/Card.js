@@ -59,6 +59,7 @@ class Card {
   // Метод удаления Card
   _removeCard() {
     this._element.remove();
+    this._element = null
   }
 
   _setEventListeners() {
