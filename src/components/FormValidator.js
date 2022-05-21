@@ -1,5 +1,5 @@
 // Класс валидации форм
-class FormValidator {
+export default class FormValidator {
   constructor(obj, formElement) {
     this._formElement = formElement;
     this._inputElement = obj.inputElement;
@@ -81,7 +81,3 @@ class FormValidator {
     this._setEventListeners();
   };
 }
-
-export { FormValidator };
-
-

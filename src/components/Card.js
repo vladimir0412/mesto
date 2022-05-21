@@ -1,11 +1,10 @@
-import { openPopup } from "./index.js";
-
 // Класс добавления карточек
-class Card {
-  constructor(link, name, cardSelector) {
+export default class Card {
+  constructor({ data, handleCardClick }, cardSelector) {
     this._cardSelector = cardSelector;
-    this._link = link;
-    this._name = name;
+    this._link = data.link;
+    this._name = data.name;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -75,9 +74,8 @@ class Card {
 
     // Обработчик собития и стрелочная функция открытия изображения Card
     this._imageCard.addEventListener('click', () => {
-      this._openImage();
+      this._handleCardClick(this._name, this._link);
     });
   }
 }
 
-export {Card};
