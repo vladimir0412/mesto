@@ -9,12 +9,10 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    const data = {};
-    this._inputName.value = this._nameValue.textContent;
-    this._inputProfession.value = this._professionValue.textContent;
-    data.nameValueSelector = this._inputName.value;
-    data.professionValueSelector = this._inputProfession.value;
-    return data;
+    return {
+      nameValueSelector: this._nameValue.textContent,
+      professionValueSelector: this._professionValue.textContent
+    }
   }
 
   setUserInfo(data) {

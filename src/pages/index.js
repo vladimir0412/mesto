@@ -36,7 +36,7 @@ function editFormProfile() {
   const profileValues = createProfileValues.getUserInfo();
   popupName.value = profileValues.nameValueSelector;
   popupProfession.value = profileValues.professionValueSelector;
-  validationPopupProfileForm.toggleButtonState();
+  validationPopupProfileForm.resetValidation();
   editProfileFromForm.open();
 }
 
@@ -69,7 +69,7 @@ buttonPopupProfile.addEventListener('click', () => {
 // Для popupCard
 buttonPopupCard.addEventListener('click', () => {
   //popupCardForm.reset();
-  validationPopupCardForm.toggleButtonState();
+  validationPopupCardForm.resetValidation();
   addCardFromForm.open();
 });
 

@@ -76,6 +76,14 @@ export default class FormValidator {
     });
   };
 
+  // Метод сбрасывания ошибок из form при закрытии Popup без Submit
+  resetValidation() {
+    this.toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+  }
+
   // Метод добавления обработчиков всем формам
   enableValidation = () => {
     this._setEventListeners();
