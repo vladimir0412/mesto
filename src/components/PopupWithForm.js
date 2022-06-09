@@ -8,6 +8,8 @@ export default class PopupWithForm extends Popup {
 
     this._formElement = this._popup.querySelector('.popup__form');
     this._inputElement = this._formElement.querySelectorAll('.popup__input');
+    this._buttonSubmitTextForm = this._popup.querySelector('.popup__button');
+    this._defaultButtonSubmitTextForm = this._buttonSubmitTextForm.textContent;
   }
 
   _getInputValues() {
@@ -16,6 +18,14 @@ export default class PopupWithForm extends Popup {
       this._formValues[input.name] = input.value;
     });
     return this._formValues;
+  }
+
+  playLoading(isLoading, textButton) {
+    if (isLoading) {
+      this._buttonSubmitTextForm.textContent = textButton;
+    } else {
+      this._buttonSubmitTextForm.textContent = this._defaultButtonSubmitTextForm;
+    }
   }
 
   setEventListeners() {

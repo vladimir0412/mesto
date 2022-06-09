@@ -8,6 +8,8 @@
   border: none;
   cursor: pointer;
   transition-duration: .4s;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .card__trash:hover {

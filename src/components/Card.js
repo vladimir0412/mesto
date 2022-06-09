@@ -1,10 +1,17 @@
-// Класс добавления карточек
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelector) {
+  constructor({ data, handleCardClick, deleteCardClick,
+     likeCardClick, removeLikeCardClick }, userId, cardSelector) {
     this._cardSelector = cardSelector;
     this._link = data.link;
     this._name = data.name;
+    this._likes = data.likes;
+    this._owner = data.owner;
+    this._id = data._id;
     this._handleCardClick = handleCardClick;
+    this._deleteCardClick = deleteCardClick;
+    this._likeCardClick = likeCardClick;
+    this._removeLikeCardClick = removeLikeCardClick;
+    this._userId = userId;
   }
 
   _getTemplate() {
@@ -17,6 +24,14 @@ export default class Card {
     return elementsCard ;
   }
 
+  _getMyLike() {
+    for (let i = 0; i < this._likes.length; i++) {
+      if (this._likes[i]._id === this._userId) {
+        return true;
+      }
+    }
+  }
+
   generateCard() {
     this._element = this._getTemplate();
 
@@ -27,19 +42,26 @@ export default class Card {
     this._imageCard.alt = this._name;
     this._element.querySelector('.card__name').textContent = this._name;
 
-    // Переменная кнопки Like
+    // Переменные кнопки Like
     this._cardLikeButton = this._element.querySelector('.card__like');
+    this._likeNumber = this._element.querySelector('.card__like-number');
+    this._likeNumber.textContent = this._likes.length;
 
-    // Переменная кнопки удаления Card
+    if (this._getMyLike()) {
+      this._cardLikeButton.classList.add('card__like_active');
+    }
+
+    //Переменная кнопки удаления Card
     this._cardRemoveButton = this._element.querySelector('.card__trash');
+
+    if (this._userId === this._owner._id) {
+      this._cardRemoveButton.classList.add('card__trash_active');
+    } else {
+      this._cardRemoveButton.classList.remove('card__trash_active');
+    };
 
     this._setEventListeners();
     return this._element;
-  }
-
-  // Метод добавления Like
-  _toggleLike() {
-    this._cardLikeButton.classList.toggle('card__like_active');
   }
 
   // Метод удаления Card
@@ -51,12 +73,17 @@ export default class Card {
   _setEventListeners() {
     // Обработчик собития и стрелочная функция добавления Like
     this._cardLikeButton.addEventListener('click', () => {
-      this._toggleLike();
+      this._cardLikeButton =! this._cardLikeButton;
+      if (!this._cardLikeButton) {
+        this._likeCardClick(this._element, this._id, this._likeNumber);
+      } else {
+        this._removeLikeCardClick(this._element, this._id, this._likeNumber);
+      }
     });
 
     // Обработчик собития удаления Card
     this._cardRemoveButton.addEventListener('click', () => {
-      this._removeCard();
+      this._deleteCardClick(this._element, this._id);
     });
 
     // Обработчик собития и стрелочная функция открытия изображения Card
