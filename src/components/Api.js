@@ -4,28 +4,25 @@ export default class Api {
     this._headers = config.headers;
   }
 
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
+
   getProfile() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   getCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   editProfile(data) {
@@ -34,12 +31,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   createCard(data) {
@@ -48,12 +40,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   deleteCard(data, id) {
@@ -63,12 +50,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   addLike(data, id) {
@@ -77,12 +59,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   removeLike(data, id) {
@@ -91,12 +68,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 
   editAvatar(data) {
@@ -105,11 +77,6 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
+    .then(this._getResponseData)
   }
 }

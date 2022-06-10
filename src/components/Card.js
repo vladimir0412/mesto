@@ -25,10 +25,8 @@ export default class Card {
   }
 
   _getMyLike() {
-    for (let i = 0; i < this._likes.length; i++) {
-      if (this._likes[i]._id === this._userId) {
-        return true;
-      }
+    if (this._likes.some((like) => like._id === this._userId)) {
+      return true;
     }
   }
 
@@ -63,6 +61,18 @@ export default class Card {
     this._setEventListeners();
     return this._element;
   }
+
+  addCardLike = (data) => {
+    this._element.querySelector('.card__like').classList.add('card__like_active');
+    this._likesArray = data.likes;
+    this._element.querySelector('.card__like-number').textContent = this._likesArray.length;
+  };
+
+  removeCardLike = (data) => {
+    this._element.querySelector('.card__like').classList.remove('card__like_active');
+    this._likesArray = data.likes;
+    this._element.querySelector('.card__like-number').textContent = this._likesArray.length;
+  };
 
   // Метод удаления Card
   _removeCard() {
